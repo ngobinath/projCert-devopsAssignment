@@ -10,7 +10,10 @@ pipeline {
             }
             steps {
                 echo 'Executing ansible to install docker on Test Server'
-                sh 'ansible-playbook /var/tools/playbooks/installdocker.yml '
+                ansiblePlaybook credentialsId: 'gopi-ansible',
+                                 disableHostKeyChecking: true,
+                                 installation: 'Ansible',
+                                 playbook: 'installdocker.yml'
             }
         }
         stage('Git-Checkout') {
