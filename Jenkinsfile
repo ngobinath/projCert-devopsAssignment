@@ -30,7 +30,6 @@ pipeline {
               label 'Test-Server' 
             }
             steps {
-                
                 echo 'Logging in to DockerHub'
                 // sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 // This step should not normally be used in your script. Consult the inline help for details.
@@ -45,6 +44,9 @@ pipeline {
 
     }
     post {
+        agent { 
+              label 'Test-Server' 
+        }
         always {
             sh 'docker logout'
         }
