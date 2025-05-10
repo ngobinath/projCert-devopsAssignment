@@ -43,11 +43,26 @@ pipeline {
                 }
             }    
         }
+        stage('Deploy') {
+            agent { 
+              label 'Test-Server' 
+            }
+            steps {
+                echo 'Deploying the Image from DockerHub'
+                sh 'docker run -d -p 9500:80 sngobhe/edurekaassignment1:latest'
+                sh 'curl -v http://18.222.220.172:9500/'
+                echo '*************************************************************'
+                echo 'The PHP Application Successfully Deployed and tested'
+                echo '*************************************************************'
+            }
+        }
     }
     post {
         always {
             node ('Test-Server') {
                 sh 'docker logout'
+                sh 'docker rm -v -f $(docker ps -qa)'
+                sh 'docker image prune --all --force'
             }    
         }
     }
