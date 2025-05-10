@@ -38,17 +38,13 @@ pipeline {
                     sh 'docker build -t sngobhe/edurekaassignment1:latest'
                     sh 'docker push sngobhe/edurekaassignment1:latest'
                 }
-                
             }    
         }
-
     }
     post {
-        agent { 
-              label 'Test-Server' 
-        }
         always {
             sh 'docker logout'
+            step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "gobiawstrainer@gmail.com", sendToIndividuals: true])
         }
     }
 }
