@@ -6,14 +6,11 @@ pipeline {
     stages {
         stage('Execute Ansible') {
             agent { 
-                label 'Built-In Node' 
+                label 'Master' 
             }
             steps {
                 echo 'Executing ansible to install docker on Test Server'
-                ansiblePlaybook credentialsId: 'gopi-ansible',
-                                 disableHostKeyChecking: true,
-                                 installation: 'Ansible',
-                                 playbook: 'installdocker.yml'
+                sh 'ansible-playbook /var/tools/playbooks/installdocker.yml '
             }
         }
         stage('Git-Checkout') {
