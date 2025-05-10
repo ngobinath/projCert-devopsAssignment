@@ -13,7 +13,7 @@ pipeline {
                 ansiblePlaybook credentialsId: 'gopi-ansible',
                                  disableHostKeyChecking: true,
                                  installation: 'Ansible',
-                                 playbook: 'installdocker.yml'
+                                 playbook: '/var/tools/playbooks/installdocker.yml'
             }
         }
         stage('Git-Checkout') {
