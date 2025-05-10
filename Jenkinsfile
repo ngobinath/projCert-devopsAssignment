@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('sngobhe-dockerhub')
+        DOCKERHUB_CREDENTIALS = credentials('dockerHub')
     }
     stages {
         stage('Execute Ansible') {
