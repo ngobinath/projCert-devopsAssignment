@@ -34,11 +34,11 @@ pipeline {
                 // sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 // This step should not normally be used in your script. Consult the inline help for details.
                 // This step should not normally be used in your script. Consult the inline help for details.
-                withDockerRegistry(credentialsId: 'sngobhe-dockerhub', url: 'https://registry-1.docker.io/v2/') {
-                        echo 'Building the Docker Image'
-                        sh 'docker build -t sngobhe/edurekaassignment1:latest .'
-                        echo 'Pushing the Docker Image to Dockerhub'
-                        sh 'docker push sngobhe/edurekaassignment1:latest'
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                       echo 'Building the Docker Image'
+                       sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                       echo 'Pushing the Docker Image to Dockerhub'
+                       sh 'docker push sngobhe/edurekaassignment1:latest'    
                 }
             }    
         }
