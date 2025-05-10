@@ -36,7 +36,7 @@ pipeline {
                 // This step should not normally be used in your script. Consult the inline help for details.
                 withDockerRegistry(credentialsId: 'sngobhe-dockerhub', url: 'https://registry-1.docker.io/v2/') {
                         echo 'Building the Docker Image'
-                        sh 'docker build -t sngobhe/edurekaassignment1:latest'
+                        sh 'docker build -t sngobhe/edurekaassignment1:latest .'
                         echo 'Pushing the Docker Image to Dockerhub'
                         sh 'docker push sngobhe/edurekaassignment1:latest'
                 }
