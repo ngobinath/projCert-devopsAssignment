@@ -1,12 +1,13 @@
 pipeline {
-    agent { 
-        label 'Test-Server' 
-    }
+    agent none
     environment {
         DOCKERHUB_CREDENTIALS = credentials('sngobhe-dockerhub')
     }
     stages {
         stage('Execute Ansible') {
+            agent { 
+                label 'Built-In Node' 
+            }
             steps {
                 echo 'Executing ansible to install docker on Test Server'
                 ansiblePlaybook credentialsId: 'gopi-ansible',
@@ -16,13 +17,20 @@ pipeline {
             }
         }
         stage('Git-Checkout') {
+            agent { 
+              label 'Test-Server' 
+            }
             steps {
                 echo 'Checking out the code from GIT Repository'
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ngobinath/projCert-devopsAssignment.git']])
             }
         }
         stage('Docker Build and Push') {
+            agent { 
+              label 'Test-Server' 
+            }
             steps {
+                
                 echo 'Logging in to DockerHub'
                 // sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 // This step should not normally be used in your script. Consult the inline help for details.
