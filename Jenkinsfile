@@ -43,8 +43,10 @@ pipeline {
     }
     post {
         always {
-            sh 'docker logout'
-            step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "gobiawstrainer@gmail.com", sendToIndividuals: true])
+            node ('Test-Server') {
+                sh 'docker logout'
+                step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: "gobiawstrainer@gmail.com", sendToIndividuals: true])
+            }    
         }
     }
 }
