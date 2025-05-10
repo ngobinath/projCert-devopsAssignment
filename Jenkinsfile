@@ -60,7 +60,6 @@ pipeline {
     post {
         failure {
             node ('Test-Server') {
-                echo "Failed stage name: ${FAILED_STAGE}"
                 sh 'docker rm -v -f $(docker ps -qa)'
                 sh 'docker image prune --all --force'
             }    
