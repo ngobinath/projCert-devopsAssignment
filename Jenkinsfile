@@ -34,7 +34,7 @@ pipeline {
                 // sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 // This step should not normally be used in your script. Consult the inline help for details.
                 // This step should not normally be used in your script. Consult the inline help for details.
-                withDockerRegistry(credentialsId: 'sngobhe-dockerhub', url: 'https://hub.docker.com/repository/docker/sngobhe/edurekaassignment1/general') {
+                withDockerRegistry(credentialsId: 'sngobhe-dockerhub', url: 'https://registry-1.docker.io/v2/') {
                     sh 'docker build -t sngobhe/edurekaassignment1:latest'
                     sh 'docker push sngobhe/edurekaassignment1:latest'
                 }
