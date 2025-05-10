@@ -38,7 +38,7 @@ pipeline {
                         echo 'Building the Docker Image'
                         sh 'docker build -t sngobhe/edurekaassignment1:latest .' 
                         echo 'Pushing the Docker Image to Dockerhub'
-                        sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                        sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword} docker.io"
                         sh 'docker push sngobhe/edurekaassignment1:latest'    
                 }
             }    
